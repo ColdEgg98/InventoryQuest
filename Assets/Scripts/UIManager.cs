@@ -86,12 +86,17 @@ public class UIManager : MonoBehaviour
             item.transform.SetParent(invenInitPivot.transform);
             item.AddComponent<Image>().sprite = player.inventory[i].icon;
 
-            // Outline 추가 후 비활성화
+            // Outline
             Outline outline = item.AddComponent<Outline>();
             outline.effectColor = Color.green;
             outline.effectDistance = new Vector2(-1.5f, 1.5f);
-            outline.enabled = false;
 
+            if (player.inventory[i].isEquip)
+                outline.enabled = true;
+            else
+                outline.enabled = false;
+
+            // Button
             int currentindex = i;
             item.AddComponent<Button>().onClick.AddListener(() => EquipManage(currentindex));
         }
@@ -114,7 +119,7 @@ public class UIManager : MonoBehaviour
         {
             player.EquipItem(player.inventory[index]);
             Debug.Log($"EquipItem : {player.inventory[index].name}");
-            outline.enabled = true; // Outline 켜기
+            outline.enabled = true;
         }
     }
 }
