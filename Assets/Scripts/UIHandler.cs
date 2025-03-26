@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class UIHandler : MonoBehaviour
 {
-    public SpriteRenderer icon;
-    bool isEquip;
+
 }
