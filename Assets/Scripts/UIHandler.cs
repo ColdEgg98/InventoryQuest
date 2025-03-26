@@ -27,6 +27,7 @@ public class UIHandler : MonoBehaviour
 
     private void OpenStatus()
     {
+        UIManager.instance.UpdateStat();
         statusScreen.gameObject.SetActive(true);
         statusBtn.gameObject.SetActive(false);
         inventoryBtn.gameObject.SetActive(false);
@@ -40,6 +41,7 @@ public class UIHandler : MonoBehaviour
     }
     private void OpenInventory()
     {
+        UIManager.instance.UpdateInventory();
         inventoryScreen.gameObject.SetActive(true);
         inventoryBtn.gameObject.SetActive(false);
         statusBtn.gameObject.SetActive(false);
@@ -47,6 +49,7 @@ public class UIHandler : MonoBehaviour
 
     private void CloseInventory()
     {
+        UIManager.instance.UpdateUI();
         inventoryScreen.gameObject.SetActive(false);
         inventoryBtn.gameObject.SetActive(true);
         statusBtn.gameObject.SetActive(true);

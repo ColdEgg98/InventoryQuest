@@ -13,3 +13,9 @@ MonoBehaviour:
   m_Name: Sword
   m_EditorClassIdentifier: 
   icon: {fileID: 21300000, guid: ea3922aee9d3c3d408d6873e60be039b, type: 3}
+  value: 20
+  isEquip: 0
+  isAttackUp: 1
+  isDefenceUp: 0
+  isHPUp: 0
+  isCritUp: 0

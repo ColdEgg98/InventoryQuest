@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
     [Header("BaseInfo")]
     public TextMeshProUGUI nameTxt;
     public TextMeshProUGUI levelTxt;
@@ -27,16 +29,23 @@ public class UIManager : MonoBehaviour
 
     public Player player;
 
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+
     private void Start()
     {
         player = GameManager.instance.player;
 
         UpdateUI();
-        UpdateStat();
         UpdateInventory();
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         nameTxt.text = player.stat.name;
         levelTxt.text = player.stat.level.ToString();
@@ -46,7 +55,7 @@ public class UIManager : MonoBehaviour
         slider.value = player.stat.currentEXP;
     }
 
-    private void UpdateStat()
+    public void UpdateStat()
     {
         attackTxt.text = player.stat.attack.ToString();
         defenceTxt.text = player.stat.defence.ToString();
@@ -54,8 +63,20 @@ public class UIManager : MonoBehaviour
         critTxt.text = player.stat.crit.ToString();
     }
 
-    private void UpdateInventory()
+    public void UpdateInventory()
     {
+        if(player.inventory.Count == 0)
+        {
+            invenAmountTxt.text = "0";
+            Debug.Log("Inventory is Empty");
+            return;
+        }
+
+        foreach (Transform child in invenInitPivot.transform)
+        {
+            Destroy(child.gameObject);
+        }
+
         invenAmountTxt.text = player.inventory.Count.ToString();
 
         for (int i = 0; i < player.inventory.Count; i++)
@@ -63,6 +84,22 @@ public class UIManager : MonoBehaviour
             GameObject item = new GameObject("Item");
             item.transform.SetParent(invenInitPivot.transform);
             item.AddComponent<Image>().sprite = player.inventory[i].icon;
+            int currentindex = i;
+            item.AddComponent<Button>().onClick.AddListener(() => EquipManage(currentindex));
+        }
+    }
+
+    private void EquipManage(int index)
+    {
+        if (player.inventory[index].isEquip)
+        {
+            player.UnEquipItem(player.inventory[index]);
+            Debug.Log($"UnEquipItem : {player.inventory[index].name}");
+        }
+        else
+        {
+            player.EquipItem(player.inventory[index]);
+            Debug.Log($"EquipItem : {player.inventory[index].name}");
         }
     }
 }

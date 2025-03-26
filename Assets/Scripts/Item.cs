@@ -6,5 +6,10 @@ using UnityEngine;
 public class Item : ScriptableObject
 {
     public Sprite icon;
-    bool isEquip;
+    public int value;
+    public bool isEquip;
+    public bool isAttackUp;
+    public bool isDefenceUp;
+    public bool isHPUp;
+    public bool isCritUp;
 }
