@@ -23,5 +23,7 @@ public class GameManager : MonoBehaviour
         player = new Player();
 
         player.inventory = new List<Item>(Resources.LoadAll<Item>($"Items/"));
+        foreach (var item in player.inventory)
+            item.isEquip = false;
     }
 }
