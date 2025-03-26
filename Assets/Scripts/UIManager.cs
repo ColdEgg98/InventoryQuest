@@ -21,18 +21,23 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI healthTxt;
     public TextMeshProUGUI critTxt;
 
-    private Player player;
+    [Header("Inventory")]
+    public TextMeshProUGUI invenAmountTxt;
+    public GameObject invenInitPivot;
+
+    public Player player;
 
     private void Start()
     {
+        player = GameManager.instance.player;
+
         UpdateUI();
         UpdateStat();
+        UpdateInventory();
     }
 
     private void UpdateUI()
     {
-        player = GameManager.instance.player;
-
         nameTxt.text = player.stat.name;
         levelTxt.text = player.stat.level.ToString();
         EXPTxt.text = $"{player.stat.currentEXP}/{player.stat.maxEXP}";
@@ -40,13 +45,24 @@ public class UIManager : MonoBehaviour
         slider.maxValue = player.stat.maxEXP;
         slider.value = player.stat.currentEXP;
     }
+
     private void UpdateStat()
     {
-        player = GameManager.instance.player;
-
         attackTxt.text = player.stat.attack.ToString();
         defenceTxt.text = player.stat.defence.ToString();
         healthTxt.text = player.stat.health.ToString();
         critTxt.text = player.stat.crit.ToString();
+    }
+
+    private void UpdateInventory()
+    {
+        invenAmountTxt.text = player.inventory.Count.ToString();
+
+        for (int i = 0; i < player.inventory.Count; i++)
+        {
+            GameObject item = new GameObject("Item");
+            item.transform.SetParent(invenInitPivot.transform);
+            item.AddComponent<Image>().sprite = player.inventory[i].icon;
+        }
     }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Status
 {
     internal string name;
@@ -25,8 +27,14 @@ public class Status
         gold = 20000;
     }
 }
+
 public class Player
 {
     public Status stat = new Status();
-    public Item[] inventory;
+    public List<Item> inventory;
+
+    public void GetItem(Item newItem)
+    {
+        inventory.Add(newItem);
+    }
 }

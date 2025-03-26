@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    internal Player player;
+    public Player player;
 
     private void Awake()
     {
@@ -14,6 +14,14 @@ public class GameManager : MonoBehaviour
         else
             Destroy(gameObject);
 
+        SetData();
+    }
+
+    private void SetData()
+    {
+        // 생성자로 데이터 입력
         player = new Player();
+
+        player.inventory = new List<Item>(Resources.LoadAll<Item>($"Items/"));
     }
 }

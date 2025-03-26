@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+[CreateAssetMenu(fileName = "Item", menuName = "Custom/Item", order = 1)]
+public class Item : ScriptableObject
 {
-    public SpriteRenderer icon;
+    public Sprite icon;
     bool isEquip;
 }
